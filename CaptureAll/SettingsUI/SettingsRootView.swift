@@ -229,9 +229,15 @@ struct SettingsRootView: View {
         Section {
             SettingsPermissionRow(
                 title: "Screen Recording",
-                status: PermissionGate.hasScreenRecordingAccess() ? "Granted" : "Not granted",
-                actionTitle: "Open Settings",
-                action: { PermissionGate.openScreenRecordingSettings() }
+                status: PermissionGate.screenRecordingStatusLabel(),
+                actionTitle: PermissionGate.hasScreenRecordingAccess() ? "Open Settings" : "Quit & Relaunch",
+                action: {
+                    if PermissionGate.hasScreenRecordingAccess() {
+                        PermissionGate.openScreenRecordingSettings()
+                    } else {
+                        PermissionGate.relaunchApp()
+                    }
+                }
             )
             SettingsPermissionRow(
                 title: "Microphone",
@@ -239,6 +245,9 @@ struct SettingsRootView: View {
                 actionTitle: "Open Settings",
                 action: { PermissionGate.openMicrophoneSettings() }
             )
+            Text("If Screen Recording is On in System Settings but CaptureAll still says no, Quit & Relaunch — macOS only applies it to a new process.")
+                .font(.caption)
+                .foregroundStyle(.secondary)
         } header: {
             Text("Permissions").foregroundStyle(.secondary)
         }

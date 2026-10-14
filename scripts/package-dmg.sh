@@ -3,7 +3,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
-VERSION="${CAPTUREALL_VERSION:-1.0.0}"
+VERSION="${CAPTUREALL_VERSION:-1.0.1}"
 DIST="$ROOT/dist"
 STAGE="$DIST/dmg-stage"
 DMG_NAME="CaptureAll-${VERSION}.dmg"
@@ -49,7 +49,9 @@ cp "$ROOT/CaptureAll/Resources/AppIcon.icns" "$RES/AppIcon.icns"
 # Do not set CFBundleIconName — Assets.car may encode the B&W logo as
 # monochrome and Finder then drops the black fill (white sides).
 /usr/libexec/PlistBuddy -c 'Delete :CFBundleIconName' "$DIST/CaptureAll.app/Contents/Info.plist" 2>/dev/null || true
-codesign --force --deep --sign - "$DIST/CaptureAll.app" >/dev/null
+# Keep entitlements when re-signing (plain `codesign -` drops them).
+ENTITLEMENTS="$ROOT/CaptureAll/Resources/CaptureAll.entitlements"
+codesign --force --deep --sign - --entitlements "$ENTITLEMENTS" "$DIST/CaptureAll.app" >/dev/null
 
 echo "==> App Resources:"
 ls -lh "$RES/AppIcon.icns" "$RES/Assets.car" 2>/dev/null || ls -la "$RES"
