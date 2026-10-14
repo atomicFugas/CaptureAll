@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<!-- Prefer AppIcon.icns (full RGB). Asset catalog can compile B&W logos
+	     as monochrome and Finder then shows white sides instead of black fill. -->
+	<key>CFBundleIconFile</key>
+	<string>AppIcon</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>13.0</string>
+	<!-- No LSUIElement: on macOS 26, LSUIElement + accessory policy can land the
+	     NSStatusItem on Control Center's blocked list. Dock is hidden at runtime via
+	     NSApp.setActivationPolicy(.accessory). -->
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2026 CaptureAll.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>CaptureAll needs the microphone to include your voice in recordings.</string>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+</dict>
+</plist>
